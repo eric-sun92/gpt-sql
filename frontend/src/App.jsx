@@ -7,28 +7,30 @@ export default function App() {
 
   const onSubmit = async (e) => {
     e.preventDefault();
-    console.log("submitted form")
-    // const query = await generateQuery();
-    // setSqlQuery(query);
+    const query = await generateQuery();
+    setSqlQuery(query);
   };
 
-  // const generateQuery = async () => {
-  //   const response = await fetch("http://localhost:3002/generate", {
-  //     method: "POST",
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //     },
-  //     body: JSON.stringify({ queryDescription: userPrompt }),
-  //   });
+  const generateQuery = async () => {
+    console.log("third")
+    const response = await fetch("/api/generate", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ queryDescription: userPrompt }),
+    });
+    console.log('first')
 
-  //   const data = await response.json();
-  //   return data.sqlQuery.trim();
-  // };
+    const data = await response.json();
+    console.log("second")
+    return data.sqlQuery.trim();
+  };
 
   return (
     <main className={styles.main}>
       <h3>Generate SQL</h3>
-      <form onSubmit={() => onSubmit}>
+      <form onSubmit={onSubmit}>
         <input
           type="text"
           name="query-description"
